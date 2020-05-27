@@ -1,0 +1,27 @@
+<button id="start-btn">start</button>
+<button id="stop-btn">stop</button>
+<div class="result"></div>
+<script>
+  const startBtn = document.querySelector('#start-btn');
+  const stopBtn = document.querySelector('#stop-btn');
+  const result = document.querySelector('.result');
+
+  SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
+  const recognition = new SpeechRecognition();
+
+  recognition.lang = 'ja-JP';
+  recognition.continuous = true;
+
+  recognition.onresult = (event) => {
+    for(let i = event.resultIndex; i<event.results.length;i++){
+      let transcript = event.results[i][0].transcript;
+      result.innerHTML = transcript;
+    }
+  }
+  startBtn.onclick = () => {
+    recognition.start();
+  }
+  stopBtn.onclick = () => {
+    recognition.stop();
+  }
+</script>
